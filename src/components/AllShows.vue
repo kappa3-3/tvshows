@@ -15,10 +15,7 @@
 </template>
 
 <script>
-
-// import axios from 'axios'
 import { resolveApiCall } from '../services/tvmazeApi'
-// import { filterGenres } from '../services/filterGenres'
 import Category from '@/components/Category.vue'
 import ShowTile from '@/components/ShowTile.vue'
 export default {
@@ -40,29 +37,18 @@ export default {
   mounted () {
     resolveApiCall('http://api.tvmaze.com/shows')
       .then(data => (this.shows = data))
-      // .then(() => this.filterShows())
       .then(() => this.getGenres())
       .then(() => this.categorizeShows())
   },
-  // watch: {
-  //   shows: function () {
-  //     this.filterShows()
-  //   }
-  // },
   methods: {
     hideSearch () {
       this.isSearch = false
       this.showQuery = ''
     },
     searchShow () {
-      this.searchedShows = this.shows.filter(show => show.name.toLowerCase().includes(this.showQuery.toLowerCase()))
+      this.searchedShows = this.shows.filter(({ name }) => name.toLowerCase().includes(this.showQuery.toLowerCase()))
       this.isSearch = true
     },
-    // searchShow () {
-    //   resolveApiCall(`http://api.tvmaze.com/search/shows?q=${this.showQuery}`)
-    //     .then(data => (this.shows = data.map(object => object.show)))
-    //     .then(() => (this.isSearch = true))
-    // },
     getGenres () {
       this.genresList = this.shows.reduce((acc, show) => {
         show.genres.forEach(genre => {
@@ -87,14 +73,6 @@ export default {
         })
       })
     }
-    // filterShows: function () {
-    //   this.categorizedShows = [
-    //     { id: 'Action', shows: filterGenres(this.shows, 'Action') },
-    //     { id: 'Comedy', shows: filterGenres(this.shows, 'Comedy') },
-    //     { id: 'Thriller', shows: filterGenres(this.shows, 'Thriller') },
-    //     { id: 'Drama', shows: filterGenres(this.shows, 'Drama') }
-    //   ]
-    // }
   }
 }
 </script>
@@ -114,6 +92,5 @@ export default {
     z-index: 2;
     position: absolute;
     background-color: rgba(55, 55, 55, 0.8);
-
   }
 </style>
