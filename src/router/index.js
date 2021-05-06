@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import TvShow from '../components/TvShow.vue'
-// import ShowDetails from '../views/ShowDetails.vue'
+import DetailedView from '../views/DetailedView.vue'
+// import TvShow from '../components/TvShow.vue'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -13,9 +14,18 @@ const routes = [
     component: Home
   },
   {
-    path: '/tvshows/:id',
-    name: 'TvShow',
-    component: TvShow
+    path: '/tvshow/:id',
+    name: 'tvshow',
+    // props: true,
+    props: {
+      default: true,
+      props: { store }
+    },
+    component: DetailedView
+    // component: () =>
+    //   import(
+    //     '../views/DetailedView.vue'
+    //   )
   }
 ]
 

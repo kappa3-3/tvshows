@@ -1,26 +1,31 @@
 <template>
   <div class="tvshow-container">
-    <img :src="show.image.medium" :alt="show.name">
+    <img :src="show.image.original" :alt="show.name" class="tvshow-background">
     <div class="tvshow-desc">
       <h1>{{show.name}}</h1>
-      <p>Rating: {{show.rating.average}}</p>
-      <div v-html="show.summary"></div>
-      <a :href="show.officialSite" target="_blank">Go to official website</a>
+      <div>
+      <p>
+        <span>✭ {{show.rating.average}}</span>
+        <span v-for="genre in show.genres" :key="genre" class="tvshow-genre"> | {{genre}}</span>
+      </p>
+      </div>
+      <div v-html="show.summary" class="tvshow-summary"/>
+      <a :href="show.officialSite" target="_blank" class="tvshow-redirect">
+        Go to the official website
+      </a>
     </div>
   </div>
 </template>
 
 <script>
-import { resolveApiCall } from '../services/tvmazeApi'
+
 export default {
-  data () {
-    return {
-      show: null
+  name: 'TvShow',
+  props: {
+    show: {
+      type: Object,
+      required: true
     }
-  },
-  mounted () {
-    resolveApiCall(`http://api.tvmaze.com/shows/${this.$route.params.id}`)
-      .then(data => (this.show = data))
   }
 }
 </script>
@@ -28,14 +33,31 @@ export default {
 <style lang="scss">
  .tvshow-container {
    display: flex;
-   flex-wrap: wrap;
-  //  flex-direction: column;
+   position: relative;
+   overflow: hidden;
  }
  .tvshow-desc {
    display: flex;
    flex-direction: column;
-   align-items: flex-start;
-   max-width: 350px;
-   padding: 20px;
+   padding: 25px 25px 45px;
+   color: white;
+   background-color: rgba(33, 32, 39, 0.75);
+ }
+ .tvshow-background {
+   position: absolute;
+   pointer-events: none;
+   z-index: -1;
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+ }
+
+ .tvshow-genre {
+   font-size: 12px;
+   font-weight: 300;
+ }
+ .tvshow-redirect {
+   color: rgb(190, 149, 11);
+   text-decoration: none;
  }
 </style>

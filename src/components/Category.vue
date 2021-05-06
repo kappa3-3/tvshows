@@ -30,14 +30,14 @@ export default {
   methods: {
     sortShows: function (array) {
       return array.sort((a, b) => b.rating.average - a.rating.average)
-    },
-    scrollLeft: function (event) {
-      // const value = event.path[2].scrollLeft
-      event.path[2].scrollLeft += 500
-    },
-    scrollRight: function (event) {
-      event.path[2].scrollLeft -= 500
     }
+    // scrollLeft: function (event) {
+    //   // const value = event.path[2].scrollLeft
+    //   event.path[2].scrollLeft += 500
+    // },
+    // scrollRight: function (event) {
+    //   event.path[2].scrollLeft -= 500
+    // }
   }
 }
 </script>
@@ -63,9 +63,11 @@ export default {
     text-align: start;
     background-color: #323444;
     color: whitesmoke;
-    padding: 8px;
-    padding-left: 25px;
+    padding: 5px;
+    padding-left: 20px;
     border-radius: 15px;
+    font-size: 14px;
+    line-height: 20px;
   }
   // .button-left {
   //   background-color: transparent;

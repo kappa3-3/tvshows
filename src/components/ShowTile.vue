@@ -1,6 +1,6 @@
 <template>
   <li class="tile-container">
-    <router-link :to="`tvshows/${show.id}`" target="_blank" class="tile-redirect">
+    <router-link name="tvshow" :to="`tvshow/${show.id}`" target="_blank" class="tile-redirect">
       <img :src="show.image.medium" :alt="show.name" class="show-image">
       <div class="tile-desc-container">
         <span class="tile-rating">✭ {{show.rating.average}}</span>
@@ -11,7 +11,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'ShowTile',
   props: {
