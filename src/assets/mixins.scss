@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap');
+
+@mixin buttonScroll ($left, $right) {
+  font-family: 'Nanum Gothic', sans-serif;
+  background: radial-gradient(circle, $grey-opacity 17%, $accent-dark-grey 100%);
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  color: $white;
+  left: #{$left};
+  right: #{$right};
+  top: 120px;
+  font-weight: 700;
+  @media (hover: none) {
+    display: none;
+  }
+}

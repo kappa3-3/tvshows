@@ -19,8 +19,8 @@ describe('The Category component', () => {
     expect(!!wrapper).toBeTruthy()
   })
   it('should hide the search results with hideSearch called', async () => {
-    await wrapper.vm.sortShows(thrillerCategory.shows);
-    const highestRating = wrapper.vm.sortedCategory[0].rating.average;
-    expect(highestRating).toStrictEqual(9.2);
+    await wrapper.vm.sortShows(thrillerCategory.shows)
+    const highestRating = wrapper.vm.sortedCategory[0].rating.average
+    expect(highestRating).toStrictEqual(9.2)
   })
 })

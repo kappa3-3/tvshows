@@ -1,12 +1,14 @@
 <template>
-  <li >
+  <li class="position-relative">
+    <button class="button-left" @click="scrollRight">
+      &lt;&lt;
+    </button>
+    <button class="button-right"  @click="scrollLeft">
+      &gt;&gt;
+    </button>
     <h1 class="category-title">{{category.id}}</h1>
-    <ul class="container-category list-clear">
+    <ul :id="category.id" class="container-category list-clear">
       <ShowTile v-for="show in sortedCategory" :key="show.id" :show="show"/>
-      <!-- <li class="position-fixed">
-        <button class="button-left" @click="scrollRight">LESS</button>
-        <button class="button-left"  @click="scrollLeft"> more </button>
-      </li> -->
     </ul>
   </li>
 </template>
@@ -30,48 +32,47 @@ export default {
   methods: {
     sortShows: function (array) {
       return array.sort((a, b) => b.rating.average - a.rating.average)
+    },
+    scrollLeft: function () {
+      const categoryList = document.getElementById(this.category.id)
+      categoryList.scrollLeft += window.innerWidth * 0.8
+    },
+    scrollRight: function () {
+      const categoryList = document.getElementById(this.category.id)
+      categoryList.scrollLeft -= window.innerWidth * 0.8
     }
-    // scrollLeft: function (event) {
-    //   // const value = event.path[2].scrollLeft
-    //   event.path[2].scrollLeft += 500
-    // },
-    // scrollRight: function (event) {
-    //   event.path[2].scrollLeft -= 500
-    // }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
+@import '../assets/colors.scss';
+@import '../assets/mixins.scss';
   .container-category {
     display: flex;
-    overflow-x: scroll;
-    // overflow: hidden;
+    overflow-x: hidden;
     scroll-behavior: smooth;
-    // position: relative;
+    @media (hover: none) {
+      overflow-x: scroll;
+    }
   }
-  .position-fixed {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 20px 30px 20px 20px;
-    box-sizing: border-box;
-    position: fixed;
+  .position-relative {
+    position: relative;
   }
   .category-title{
     text-align: start;
-    background-color: #323444;
-    color: whitesmoke;
+    background-color: $accent-dark-grey;
+    color: $white;
     padding: 5px;
     padding-left: 20px;
     border-radius: 15px;
     font-size: 14px;
     line-height: 20px;
   }
-  // .button-left {
-  //   background-color: transparent;
-  //   height: 180px;
-  //   text-orientation: upright;
-  // }
+  .button-left {
+    @include buttonScroll(10px, unset);
+  }
+  .button-right {
+    @include buttonScroll(unset, 15px);
+  }
 </style>

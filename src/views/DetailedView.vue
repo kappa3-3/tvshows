@@ -1,24 +1,39 @@
 <template>
-  <div>
+  <div v-if="show.name">
     <TvShow :show="show" />
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 import TvShow from '@/components/TvShow.vue'
-import { resolveApiCall } from '../services/tvmazeApi'
 export default {
   name: 'DetailedView',
   components: {
     TvShow
   },
-  data () {
-    return {
-      show: { name: '', image: '', rating: { average: '' } }
+  computed: {
+    ...mapGetters(['getSingleShow', 'getTvShow']),
+    storedShow () {
+      return this.getTvShow(this.$route.params.id)
+    },
+    show () {
+      if (!this.storedShow) {
+        return this.getSingleShow
+      }
+      return this.storedShow
+    }
+  },
+  methods: {
+    ...mapActions(['retrieveSingleShow']),
+    checkIfInStore () {
+      if (!this.storedShow) {
+        return this.retrieveSingleShow(this.$route.params.id)
+      }
     }
   },
   mounted () {
-    resolveApiCall(`http://api.tvmaze.com/shows/${this.$route.params.id}`).then(data => (this.show = data))
+    this.checkIfInStore()
   }
 }
 </script>

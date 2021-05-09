@@ -21,6 +21,6 @@ describe('The Category component', () => {
   })
   it('should render data in html', async () => {
     const ratingSpan = wrapper.find('.tile-rating')
-    expect(ratingSpan.html()).toContain('9.2');
+    expect(ratingSpan.html()).toContain('9.2')
   })
 })
